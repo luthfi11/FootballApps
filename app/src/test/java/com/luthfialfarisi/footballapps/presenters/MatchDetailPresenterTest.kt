@@ -7,6 +7,7 @@ import com.luthfialfarisi.footballapps.api.TheSportDBApi
 import com.luthfialfarisi.footballapps.models.Team
 import com.luthfialfarisi.footballapps.models.TeamResponse
 import com.luthfialfarisi.footballapps.views.MatchDetailView
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 import org.junit.Before
@@ -43,14 +44,15 @@ class MatchDetailPresenterTest {
         val response = TeamResponse(data)
         val id = "133604"
 
-        `when`(gson.fromJson(apiRepository
-                .doRequest(TheSportDBApi.getTeamLogo(id)),
-                TeamResponse::class.java))
-                .thenReturn(response)
+        runBlocking {
+            `when`(gson.fromJson(apiRepository.doRequest(TheSportDBApi.getTeamLogo(id)).await(),
+                    TeamResponse::class.java))
+                    .thenReturn(response)
 
-        presenter.getHomeLogo(id)
+            presenter.getHomeLogo(id)
 
-        verify(view).showHomeLogo(data)
+            verify(view).showHomeLogo(data)
+        }
     }
 
     @Test
@@ -59,13 +61,13 @@ class MatchDetailPresenterTest {
         val response = TeamResponse(data)
         val id = "133605"
 
-        `when`(gson.fromJson(apiRepository
-                .doRequest(TheSportDBApi.getTeamLogo(id)),
-                TeamResponse::class.java))
-                .thenReturn(response)
+        runBlocking {
+            `when`(gson.fromJson(apiRepository.doRequest(TheSportDBApi.getTeamLogo(id)).await(),
+                    TeamResponse::class.java))
+                    .thenReturn(response)
+            presenter.getAwayLogo(id)
 
-        presenter.getAwayLogo(id)
-
-        verify(view).showAwayLogo(data)
+            verify(view).showAwayLogo(data)
+        }
     }
 }

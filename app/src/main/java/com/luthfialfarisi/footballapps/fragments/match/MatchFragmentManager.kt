@@ -1,11 +1,11 @@
 package com.luthfialfarisi.footballapps.fragments.match
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
 import android.view.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import com.google.android.material.tabs.TabLayout
 import com.luthfialfarisi.footballapps.R
 import com.luthfialfarisi.footballapps.activities.MatchSearchActivity
 import kotlinx.android.synthetic.main.fragment_main_match.*
@@ -47,13 +47,13 @@ class MatchFragmentManager : Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, menuInflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, menuInflater)
-        menuInflater?.inflate(R.menu.search_menu_match, menu)
+        menuInflater.inflate(R.menu.search_menu_match, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.matchSearch -> {
                 startActivity<MatchSearchActivity>()
             }

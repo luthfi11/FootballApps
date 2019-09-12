@@ -7,6 +7,7 @@ import com.luthfialfarisi.footballapps.api.TheSportDBApi
 import com.luthfialfarisi.footballapps.models.Match
 import com.luthfialfarisi.footballapps.models.MatchResponse
 import com.luthfialfarisi.footballapps.views.MatchView
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 import org.junit.Before
@@ -43,16 +44,17 @@ class MatchPresenterTest {
         val response = MatchResponse(data)
         val key = "eventspastleague.php"
 
-        `when`(gson.fromJson(apiRepository
-                .doRequest(TheSportDBApi.getSchedule(key)),
-                MatchResponse::class.java))
-                .thenReturn(response)
+        runBlocking {
+            `when`(gson.fromJson(apiRepository.doRequest(TheSportDBApi.getSchedule(key,"1")).await(),
+                    MatchResponse::class.java))
+                    .thenReturn(response)
 
-        presenter.getMatchList(key)
+            presenter.getMatchList(key, "1")
 
-        verify(view).showLoading()
-        verify(view).showMatchList(data)
-        verify(view).hideLoading()
+            verify(view).showLoading()
+            verify(view).showMatchList(data)
+            verify(view).hideLoading()
+        }
     }
 
 }

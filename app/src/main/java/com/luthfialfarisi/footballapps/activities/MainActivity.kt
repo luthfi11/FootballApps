@@ -1,9 +1,8 @@
 package com.luthfialfarisi.footballapps.activities
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.view.Menu
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.luthfialfarisi.footballapps.R
 import com.luthfialfarisi.footballapps.R.id.*
 import com.luthfialfarisi.footballapps.fragments.favorite.FavoriteFragmentManager
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    public fun loadFragment(savedInstanceState: Bundle?, fragment: Fragment) {
+    fun loadFragment(savedInstanceState: Bundle?, fragment: Fragment) {
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()

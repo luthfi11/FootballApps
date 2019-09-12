@@ -1,11 +1,11 @@
 package com.luthfialfarisi.footballapps.fragments.favorite
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.luthfialfarisi.footballapps.R
 import com.luthfialfarisi.footballapps.adapters.MatchAdapter
 import com.luthfialfarisi.footballapps.models.Match

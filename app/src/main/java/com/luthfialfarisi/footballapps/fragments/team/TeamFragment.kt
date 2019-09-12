@@ -1,18 +1,14 @@
 package com.luthfialfarisi.footballapps.fragments.team
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SearchView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.Gson
-import com.luthfialfarisi.footballapps.BuildConfig
 import com.luthfialfarisi.footballapps.R
-import com.luthfialfarisi.footballapps.R.menu.favorite_menu
 import com.luthfialfarisi.footballapps.R.menu.search_menu
 import com.luthfialfarisi.footballapps.api.ApiRepository
 import com.luthfialfarisi.footballapps.models.Team
@@ -20,7 +16,6 @@ import com.luthfialfarisi.footballapps.presenters.TeamPresenter
 import com.luthfialfarisi.footballapps.views.TeamView
 import com.luthfialfarisi.footballapps.adapters.TeamAdapter
 import com.luthfialfarisi.footballapps.models.League
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_team.*
 import org.jetbrains.anko.support.v4.onRefresh
 
@@ -88,18 +83,18 @@ class TeamFragment : Fragment(), TeamView {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, menuInflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, menuInflater)
-        menuInflater?.inflate(search_menu, menu)
+        menuInflater.inflate(search_menu, menu)
 
-        val searchMenu = menu?.findItem(R.id.teamSearch)
-        val searchView = searchMenu?.actionView as android.support.v7.widget.SearchView
+        val searchMenu = menu.findItem(R.id.teamSearch)
+        val searchView = searchMenu?.actionView as SearchView
 
         teamSearch(searchView)
     }
 
-    private fun teamSearch(searchView: android.support.v7.widget.SearchView) {
-        searchView.setOnQueryTextListener(object : android.support.v7.widget.SearchView.OnQueryTextListener {
+    private fun teamSearch(searchView: SearchView) {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }

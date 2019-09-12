@@ -1,8 +1,8 @@
 package com.luthfialfarisi.footballapps.activities
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.luthfialfarisi.footballapps.R
 import com.luthfialfarisi.footballapps.models.Player
 import com.squareup.picasso.Picasso

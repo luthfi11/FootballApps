@@ -1,13 +1,14 @@
 package com.luthfialfarisi.footballapps.fragments.match
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.luthfialfarisi.footballapps.R
 import com.luthfialfarisi.footballapps.adapters.MatchAdapter
@@ -66,11 +67,12 @@ class NextMatchFragment : Fragment(), MatchView {
 
         spn_league.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
+
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 presenter.getMatchList(matchItem, league[position].leagueID)
-
+                Log.d("AAAAAAAAAA", "${league[position].leagueID} ${league[position].leagueName}")
                 swipeRefreshMatch.onRefresh {
                     presenter.getMatchList(matchItem, league[position].leagueID)
                 }

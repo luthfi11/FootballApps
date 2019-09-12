@@ -1,16 +1,16 @@
 package com.luthfialfarisi.footballapps.activities
 
 import android.database.sqlite.SQLiteConstraintException
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
+import com.google.android.material.tabs.TabLayout
 import com.luthfialfarisi.footballapps.R
 import com.luthfialfarisi.footballapps.R.menu.favorite_menu
 import com.luthfialfarisi.footballapps.fragments.team.PlayerFragment
@@ -127,9 +127,9 @@ class TeamDetailActivity : AppCompatActivity() {
                         Team.DESCIPTION to team.teamDesc,
                         Team.BADGE to team.teamBadge)
             }
-            snackbar(tabsTeamDetail, "Added to favorite").show()
+            tabsTeamDetail.snackbar("Added to favorite")
         } catch (e: SQLiteConstraintException){
-            snackbar(tabsTeamDetail, e.localizedMessage).show()
+            tabsTeamDetail.snackbar(e.localizedMessage)
         }
     }
 
@@ -139,9 +139,9 @@ class TeamDetailActivity : AppCompatActivity() {
                 delete(Team.TABLE_TEAM, "(TEAM_ID = {teamID})", "teamID" to id)
                 Log.d("ID EVENT", id)
             }
-            snackbar(tabsTeamDetail, "Removed to favorite").show()
+            tabsTeamDetail.snackbar("Removed to favorite")
         } catch (e: SQLiteConstraintException){
-            snackbar(tabsTeamDetail, e.localizedMessage).show()
+            tabsTeamDetail.snackbar(e.localizedMessage)
         }
     }
 
@@ -149,7 +149,7 @@ class TeamDetailActivity : AppCompatActivity() {
         database.use {
             val result = select(Team.TABLE_TEAM).whereArgs("(TEAM_ID = {teamID})", "teamID" to id)
             val favorite = result.parseList(classParser<Team>())
-            if (!favorite.isEmpty()) isFavorite = true
+            if (favorite.isNotEmpty()) isFavorite = true
         }
     }
 

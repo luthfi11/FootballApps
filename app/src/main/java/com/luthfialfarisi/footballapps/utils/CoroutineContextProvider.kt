@@ -1,8 +1,8 @@
 package com.luthfialfarisi.footballapps.utils
 
-import kotlinx.coroutines.experimental.android.UI
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlin.coroutines.CoroutineContext
 
 open class CoroutineContextProvider {
-    open val main: CoroutineContext by lazy { UI }
+    open val main: CoroutineContext by lazy { Dispatchers.Main }
 }

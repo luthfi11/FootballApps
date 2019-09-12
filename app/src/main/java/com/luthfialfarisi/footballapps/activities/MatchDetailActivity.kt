@@ -1,18 +1,13 @@
 package com.luthfialfarisi.footballapps.activities
 
 import android.database.sqlite.SQLiteConstraintException
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 import com.luthfialfarisi.footballapps.R
-import com.luthfialfarisi.footballapps.R.drawable.ic_add_to_favorites
-import com.luthfialfarisi.footballapps.R.drawable.ic_added_to_favorites
-import com.luthfialfarisi.footballapps.R.id.add_to_favorite
-import com.luthfialfarisi.footballapps.R.menu.favorite_menu
 import com.luthfialfarisi.footballapps.api.ApiRepository
 import com.luthfialfarisi.footballapps.models.Match
 import com.luthfialfarisi.footballapps.models.Team
@@ -20,14 +15,15 @@ import com.luthfialfarisi.footballapps.presenters.MatchDetailPresenter
 import com.luthfialfarisi.footballapps.utils.database
 import com.luthfialfarisi.footballapps.views.MatchDetailView
 import com.squareup.picasso.Picasso
-import org.jetbrains.anko.design.snackbar
 import kotlinx.android.synthetic.main.activity_match_detail.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
+import org.jetbrains.anko.design.snackbar
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
@@ -52,7 +48,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         match = intent.getParcelableExtra("match")
-        id = match.eventId+""
+        id = match.eventId + ""
 
         getDetail(match)
 
@@ -63,15 +59,15 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
         presenter = MatchDetailPresenter(this, request, gson)
         presenter.run {
-             getHomeLogo(match.homeTeamID)
-             getAwayLogo(match.awayTeamID)
+            getHomeLogo(match.homeTeamID)
+            getAwayLogo(match.awayTeamID)
         }
 
     }
 
     private fun getDetail(match: Match) {
 
-        if(match.matchDate != null) {
+        if (match.matchDate != null) {
             val format = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
             val sdf = SimpleDateFormat("E, dd MMMM yyyy", Locale.getDefault())
             val date: String = sdf.format(format.parse(match.matchDate))
@@ -100,7 +96,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(favorite_menu, menu)
+        menuInflater.inflate(R.menu.favorite_menu, menu)
         menuItem = menu
         setFavorite()
         return true
@@ -112,7 +108,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
                 finish()
                 true
             }
-            add_to_favorite -> {
+            R.id.add_to_favorite -> {
                 if (isFavorite) removeFromFavorite() else addToFavorite()
 
                 isFavorite = !isFavorite
@@ -124,7 +120,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         }
     }
 
-    private fun addToFavorite(){
+    private fun addToFavorite() {
         try {
             database.use {
                 insert(Match.TABLE_MATCH,
@@ -151,36 +147,35 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
                         Match.HOME_ID to match.homeTeamID,
                         Match.AWAY_ID to match.awayTeamID)
             }
-            snackbar(tvSub, "Added to favorite").show()
-        } catch (e: SQLiteConstraintException){
-            snackbar(tvSub, e.localizedMessage).show()
+            tvSub.snackbar("Added to favorite").show()
+        } catch (e: SQLiteConstraintException) {
+            tvSub.snackbar(e.localizedMessage).show()
         }
     }
 
-    private fun removeFromFavorite(){
+    private fun removeFromFavorite() {
         try {
             database.use {
                 delete(Match.TABLE_MATCH, "(EVENT_ID = {eventId})", "eventId" to id)
-                Log.d("ID EVENT", id)
             }
-            snackbar(tvSub, "Removed to favorite").show()
-        } catch (e: SQLiteConstraintException){
-            snackbar(tvSub, e.localizedMessage).show()
+            tvSub.snackbar("Removed to favorite").show()
+        } catch (e: SQLiteConstraintException) {
+            tvSub.snackbar(e.localizedMessage).show()
         }
     }
 
-    private fun favoriteState(){
+    private fun favoriteState() {
         database.use {
             val result = select(Match.TABLE_MATCH).whereArgs("(EVENT_ID = {eventId})", "eventId" to id)
             val favorite = result.parseList(classParser<Match>())
-            if (!favorite.isEmpty()) isFavorite = true
+            if (favorite.isNotEmpty()) isFavorite = true
         }
     }
 
     private fun setFavorite() {
         if (isFavorite)
-            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, ic_added_to_favorites)
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_added_to_favorites)
         else
-            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, ic_add_to_favorites)
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_add_to_favorites)
     }
 }

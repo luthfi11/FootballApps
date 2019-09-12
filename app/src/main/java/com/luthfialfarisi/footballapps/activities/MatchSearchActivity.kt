@@ -1,11 +1,9 @@
 package com.luthfialfarisi.footballapps.activities
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.view.Menu
 import android.view.MenuItem
-import android.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.luthfialfarisi.footballapps.R
 import com.luthfialfarisi.footballapps.adapters.MatchAdapter
@@ -60,14 +58,14 @@ class MatchSearchActivity : AppCompatActivity(), MatchView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item?.itemId == android.R.id.home) {
+        if (item?.itemId == android.R.id.home) {
             finish()
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun matchSearch(searchView: SearchView) {
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+    private fun matchSearch(searchView: android.widget.SearchView) {
+        searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }

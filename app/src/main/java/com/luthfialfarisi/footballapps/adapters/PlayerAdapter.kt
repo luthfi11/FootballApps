@@ -1,12 +1,11 @@
 package com.luthfialfarisi.footballapps.adapters
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.luthfialfarisi.footballapps.R
 import com.luthfialfarisi.footballapps.activities.PlayerDetailActivity
-import com.luthfialfarisi.footballapps.activities.TeamDetailActivity
 import com.luthfialfarisi.footballapps.models.Player
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_player.view.*

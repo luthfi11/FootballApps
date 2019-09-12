@@ -1,26 +1,23 @@
 package com.luthfialfarisi.footballapps.fragments.match
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.luthfialfarisi.footballapps.R
-import com.luthfialfarisi.footballapps.R.id.tabs
-import com.luthfialfarisi.footballapps.activities.MatchSearchActivity
 import com.luthfialfarisi.footballapps.adapters.MatchAdapter
 import com.luthfialfarisi.footballapps.api.ApiRepository
 import com.luthfialfarisi.footballapps.models.League
 import com.luthfialfarisi.footballapps.models.Match
 import com.luthfialfarisi.footballapps.presenters.MatchPresenter
 import com.luthfialfarisi.footballapps.views.MatchView
-import kotlinx.android.synthetic.main.fragment_main_favorite.*
-import kotlinx.android.synthetic.main.fragment_main_match.*
 import kotlinx.android.synthetic.main.fragment_match.*
 import org.jetbrains.anko.support.v4.onRefresh
-import org.jetbrains.anko.support.v4.startActivity
 
 class LastMatchFragment : Fragment(), MatchView {
 
@@ -57,7 +54,6 @@ class LastMatchFragment : Fragment(), MatchView {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         rv_schedule.layoutManager = LinearLayoutManager(activity)
         adapter = MatchAdapter(match)
         rv_schedule.adapter = adapter
